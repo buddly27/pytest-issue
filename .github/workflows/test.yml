@@ -1,0 +1,16 @@
+name: tests
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - name: Install pytest
+        run: pip install pytest
+      - name: Set up symlink
+        run: ln -s ${{runner.workspace}} ${{runner.temp}}/test
+      - name: Run tests
+        working-directory: ${{runner.temp}}/test
+        run: pytest -v --full-trace
+
