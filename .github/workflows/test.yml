@@ -10,7 +10,46 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  test1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - name: Install pytest
+        run: pip install pytest
+      - name: Set up symlink
+        run: ln -s ${{runner.workspace}} /tmp/test
+      - name: Run tests
+        working-directory: /tmp/test
+        run: pytest -v --full-trace .
+
+  test2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - name: Install pytest
+        run: pip install pytest
+      - name: Set up symlink
+        run: ln -s ${{runner.workspace}} /tmp/test
+      - name: Run tests
+        working-directory: /tmp/test
+        run: pytest -v --full-trace /tmp/test
+
+  test3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - name: Install pytest
+        run: pip install pytest
+      - name: Set up symlink
+        run: ln -s ${{runner.workspace}} /tmp/test
+      - name: Run tests
+        working-directory: /tmp/test
+        run: pytest --rootdir=. -v --full-trace .
+
+  test4:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-python@v5
@@ -22,4 +61,17 @@ jobs:
       - name: Run tests
         working-directory: /tmp/test
         run: pytest --rootdir=/tmp/test -v --full-trace /tmp/test
+
+  test5:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - name: Install pytest
+        run: pip install pytest
+      - name: Set up symlink
+        run: ln -s ${{runner.workspace}} /tmp/test
+      - name: Run tests
+        working-directory: /tmp/test
+        run: pytest --rootdir=/tmp/test -v --full-trace .
 
