@@ -18,8 +18,8 @@ jobs:
       - name: Install pytest
         run: pip install pytest
       - name: Set up symlink
-        run: ln -s ${{runner.workspace}} ${{runner.temp}}/test
+        run: ln -s ${{runner.workspace}} /tmp/test
       - name: Run tests
-        working-directory: ${{runner.temp}}/test
-        run: pytest -v --full-trace
+        working-directory: /tmp/test
+        run: pytest -v --full-trace .
 
